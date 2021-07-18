@@ -3,6 +3,7 @@ namespace School\Dto;
 
 class RegisterUserDto
 {
+    public string $type;
     public string $schoolIdentifier;
     public string $email;
     public string $firstName;
@@ -18,6 +19,7 @@ class RegisterUserDto
             throw new \Exception('Post parameters are missing!' . PHP_EOL);
         }
         $dto                    = new self();
+        $dto->type              = $_POST['type'];
         $dto->schoolIdentifier  = $_POST['schoolIdentifier'];
         $dto->email             = $_POST['email'];
         $dto->firstName         = $_POST['firstName'];
@@ -29,5 +31,4 @@ class RegisterUserDto
 
         return $dto;
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace School\Service;
+
 use School\Validator\ValidatorCollection;
 use School\Dto\RegisterUserDto;
 use School\Repository\UserRepository;
@@ -22,6 +24,19 @@ class RegisterUser
      */
     public function registerUser(RegisterUserDto $dto): array
     {
+        $errorLogs = [];
+        foreach ($this->validators as $validator) {
+            if (($result = $validator->validate($dto)) === false) {
+                $errorLogs[get_class($validator)] = $result;
+            }
+        }
+
+        if (count($errorLogs) != 0) {
+            return $errorLogs;
+        }
+
+        $this->userRepository->save();
+
         return [];
     }
 }

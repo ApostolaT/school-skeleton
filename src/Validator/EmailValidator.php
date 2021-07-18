@@ -8,9 +8,9 @@ use School\Dto\RegisterUserDto;
 
 class EmailValidator implements ValidatorInterface
 {
-    private array $schoolProviders;
+    private string $schoolProviders;
 
-    public function __construct(array $schoolProviders)
+    public function __construct(string $schoolProviders)
     {
         $this->schoolProviders = $schoolProviders;
     }
@@ -24,13 +24,7 @@ class EmailValidator implements ValidatorInterface
 
     private function constructRegex(): string
     {
-        $regex = '/(?:^[\w.-]+@(?:google|yahoo|';
-        $schoolProviders = "";
-        foreach ($this->schoolProviders as $value) {
-            $schoolProviders .= $value . '|';
-        }
-        $schoolProviders = substr($schoolProviders, 0, mb_strlen($regex) - 1);
-        $regex .= $schoolProviders;
+        $regex = '/(?:^[\w.-]+@(?:google|yahoo|' . substr($this->schoolProviders, 1, mb_strlen($this->schoolProviders - 2));
         $regex .= ')\.com$)/';
 
         return $regex;

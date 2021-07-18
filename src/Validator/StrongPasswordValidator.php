@@ -14,6 +14,9 @@ class StrongPasswordValidator implements ValidatorInterface
      */
     public function validate(RegisterUserDto $dto): bool
     {
-        preg_match($this::PATTERN, $dto->password);
+        return (preg_match($this::PATTERN, $dto->password) &&
+                stripos($dto->password, $dto->firstName) === false &&
+                stripos($dto->password, $dto->lastName) === false
+        );
     }
 }

@@ -6,6 +6,7 @@ namespace School\Validator;
 
 use School\Dto\RegisterUserDto;
 
+
 class NameValidator implements ValidatorInterface
 {
     private const PATTERN = "/(?:^(?:\p{L}+)-?(?:\p{L})*$)/";
